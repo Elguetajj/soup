@@ -1,9 +1,12 @@
 language: python
 
+python:
+  - 3.7.4
+
 services:
   - docker
 
 before_install:
-  - docker build -t soupImage .
+  - docker build -t soupimage .
 
 script:
