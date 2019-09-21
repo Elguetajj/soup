@@ -1,4 +1,2 @@
-bs4
+BeautifulSoup4
 requests
-csv
-json
