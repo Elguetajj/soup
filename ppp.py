@@ -216,6 +216,9 @@ for string in email_list:
     if email_list[0].startswith(vowels):
         count += 1
 print(count)
+print(separatorItems)
+
+
 
 # for div in soup.find_all("div"):
 #     print(div)
