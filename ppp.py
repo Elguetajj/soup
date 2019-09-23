@@ -1,5 +1,8 @@
+import bs4
 from bs4 import BeautifulSoup
 import requests,sys,csv,json
+import os
+import urllib
 
 url="http://ufm.edu/Portal"
 # Make a GET request to fetch the raw HTML content
@@ -135,6 +138,76 @@ print(count)
 
 
 print(separatorParts)
+
+# part 3 ==============================================================================
+
+url="http://ufm.edu/carrera/cs/"
+# Make a GET request to fetch the raw HTML content
+try:
+    html_content = requests.get(url).text
+except:
+    print(f"unable to get {url}")
+    sys.exit(1)
+
+# Parse the html content, this is the Magic ;)
+soup = BeautifulSoup(html_content, "html.parser")
+
+print("3. CS")
+print(f"GET title: {soup.title.string}")
+print(separatorItems)
+
+# hrefs = soup.find_all('a')
+# print("GET and display the href:")
+# for href in hrefs:
+#     print(f"- {href['href']}")
+# print(separatorItems)
+
+# print(' Download the "FACULTAD de CIENCIAS ECONOMICAS" logo')
+# imgUrl = soup.find(class_="fl-photo-content fl-photo-img-png")
+# print(repr(imgUrl.content))
+# try:
+#     imgUrl = soup.find('img', class_ = "MapaLogotipos-CIENCIAS ECONOMICAS_1H-1Col-Inv")['src']
+#     urllib.urlretrieve(imgUrl, imgUrl)
+# except:
+#     print("could not find image")
+
+print("count all <a> (just display the count):")
+count = 0
+for a in soup.find_all('a'):
+    count +=1
+print(count)
+print(separatorItems)
+
+
+print("count all <div> (just display the count):")
+count = 0
+for a in soup.find_all('div'):
+    count +=1
+print(count)
+print(separatorParts)
+
+# part 4 ==============================================================================
+
+url="https://www.ufm.edu/Directorio"
+# Make a GET request to fetch the raw HTML content
+try:
+    html_content = requests.get(url).text
+except:
+    print(f"unable to get {url}")
+    sys.exit(1)
+
+# Parse the html content, this is the Magic ;)
+soup = BeautifulSoup(html_content, "html.parser")
+
+print("4. Directorio")
+table = soup.find('table', class_ = 'tabla ancho100')
+for row in table.findAll('tr')[1:]:
+    for column in row.findAll('td')[1]:
+        if type(column) == bs4.element.Tag:
+            try:
+                print(column['href'])
+            except:
+                pass
 
 # for div in soup.find_all("div"):
 #     print(div)
