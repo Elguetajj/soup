@@ -50,9 +50,12 @@ for string in upper_menu.strings:
         print("-" + string.string.strip())
 print(separatorItems)
 
+    
+
+hrefs = soup.find_all(attrs={"href":True})
 print("find all properties that have href:")
-for link in soup.find_all('a'):
-    print("-" + link.get('href'))
+for href in hrefs:
+    print("-" + href['href'])
 print(separatorItems)
 
 print("GET href of  UFMail button:")
@@ -71,10 +74,7 @@ for img in imgs:
     print(f"-{img['src']}")
 print(separatorItems)
 
-count = 0 
-for a in soup.find_all('a'):
-    count += 1
-print(f"count all <a>: {count}")
+print(f"count all <a>: {len(soup.find_all('a'))}")
 
 print(separatorParts)
 
@@ -131,17 +131,14 @@ for link in soup.find(class_ = "social pull-right").find_all('a'):
 print(separatorItems)
 
 print("count all <a> :")
-count = 0
-for a in soup.find_all('a'):
-    count +=1
-print(count)
+print(len(soup.find_all('a')))
 
 
 print(separatorParts)
 
 # part 3 ==============================================================================
 
-url="http://ufm.edu/carrera/cs/"
+url="http://fce.ufm.edu/carrera/cs/"
 # Make a GET request to fetch the raw HTML content
 try:
     html_content = requests.get(url).text
@@ -153,37 +150,38 @@ except:
 soup = BeautifulSoup(html_content, "html.parser")
 
 print("3. CS")
+
 print(f"GET title: {soup.title.string}")
 print(separatorItems)
 
-# hrefs = soup.find_all('a')
-# print("GET and display the href:")
-# for href in hrefs:
-#     print(f"- {href['href']}")
-# print(separatorItems)
+hrefs = soup.find_all(attrs={"href":True})
+print("GET and display the href:")
+for href in hrefs:
+    print(f"- {href['href']}")
+print(separatorItems)
 
-# print(' Download the "FACULTAD de CIENCIAS ECONOMICAS" logo')
-# imgUrl = soup.find(class_="fl-photo-content fl-photo-img-png")
-# print(repr(imgUrl.content))
-# try:
-#     imgUrl = soup.find('img', class_ = "MapaLogotipos-CIENCIAS ECONOMICAS_1H-1Col-Inv")['src']
-#     urllib.urlretrieve(imgUrl, imgUrl)
-# except:
-#     print("could not find image")
+print('Download the "FACULTAD de CIENCIAS ECONOMICAS" logo:')
+imgUrl = soup.find(href="https://fce.ufm.edu").find('img')['src']
+print(imgUrl)
+
+try:
+    urllib.request.urlretrieve(imgUrl, os.path.basename('CienciasEconomicasLogo.png'))
+except:
+    print("could not find image")
+print(separatorItems)
+
+print('GET following <meta>: "title", "description" ("og"):')
+print('og:title:' + soup.find('meta', property = 'og:title')['content'])
+print('og:description:' + soup.find('meta', property = 'og:description')['content'])
+print(separatorItems)
 
 print("count all <a> (just display the count):")
-count = 0
-for a in soup.find_all('a'):
-    count +=1
-print(count)
+print(len(soup.find_all('a')))
 print(separatorItems)
 
 
 print("count all <div> (just display the count):")
-count = 0
-for a in soup.find_all('div'):
-    count +=1
-print(count)
+print(len(soup.find_all('div')))
 print(separatorParts)
 
 # part 4 ==============================================================================
