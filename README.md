@@ -213,19 +213,19 @@ using ["http://ufm.edu/Estudios"](http://ufm.edu/Estudios)
 ## 3. CS
 using ["https://fce.ufm.edu/carrera/cs/"](https://fce.ufm.edu/carrera/cs/)
 
-- [ ] GET title
-- [ ] GET and display the href
-- [ ] Download the "FACULTAD de CIENCIAS ECONOMICAS" logo. (you need to obtain the link dynamically)
-- [ ] GET following &lt;meta>: "title", "description" ("og")
-- [ ] count all &lt;a> (just display the count)
-- [ ] count all &lt;div> (just display the count)
+- [x] GET title
+- [x] GET and display the href
+- [x] Download the "FACULTAD de CIENCIAS ECONOMICAS" logo. (you need to obtain the link dynamically)
+- [x] GET following &lt;meta>: "title", "description" ("og")
+- [x] count all &lt;a> (just display the count)
+- [x] count all &lt;div> (just display the count)
 
 
 ## 4. Directorio
 using ["https://www.ufm.edu/Directorio"](https://www.ufm.edu/Directorio)
 
-- [ ] Sort all emails alphabetically (`href="mailto:arquitectura@ufm.edu"`) in a list, dump it to logs/4directorio_emails.txt
-- [ ] Count all emails that start with a vowel. (just display the count)
+- [x] Sort all emails alphabetically (`href="mailto:arquitectura@ufm.edu"`) in a list, dump it to logs/4directorio_emails.txt
+- [x] Count all emails that start with a vowel. (just display the count)
 - [ ] Group in a JSON all rows that have `Same Address` (dont use Room number) as address, dump it to logs/4directorio_address.json
 
 
@@ -284,7 +284,7 @@ using ["https://www.ufm.edu/Directorio"](https://www.ufm.edu/Directorio)
 ## 5. Extra
 - [ ] Complete Dockerfile
 - [ ] Create README section for Dockerfile under [`Usage Dockerfile`](#usage-dockerfile)
-- [ ] Add CI to your own repo.
+- [x] Add CI to your own repo.
 
 
 ---

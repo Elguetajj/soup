@@ -198,15 +198,25 @@ except:
 soup = BeautifulSoup(html_content, "html.parser")
 
 print("4. Directorio")
-table = soup.find('table', class_ = 'tabla ancho100')
-for row in table.findAll('tr')[1:]:
-    for column in row.findAll('td')[1]:
-        if type(column) == bs4.element.Tag:
-            try:
-                print(column['href'])
-            except:
-                pass
+
+print('Sort all emails alphabetically (href="mailto:arquitectura@ufm.edu") in a list, dump it to logs/4directorio_emails.txt:')
+email_list = []
+hrefs = soup.findAll(attrs={"href":True})
+for href in hrefs:
+    if 'mailto:' in href['href']:
+        email_list.append(href['href'].split(':')[1])
+email_list.sort()
+print(repr(email_list))
+print(separatorItems)
+
+print('Count all emails that start with a vowel. (just display the count):')
+count = 0
+vowels = ('a','e','i','o','u','A','E','I','O','U')
+for string in email_list:
+    if email_list[0].startswith(vowels):
+        count += 1
+print(count)
 
 # for div in soup.find_all("div"):
 #     print(div)
-#     print("--------------------------")
+#     print("--------------------------"))
