@@ -52,7 +52,7 @@ print(separatorItems)
 
     
 
-hrefs = soup.find_all(attrs={"href":True})
+hrefs = soup.findAll(attrs={"href":True})
 print("find all properties that have href:")
 for href in hrefs:
     print("-" + href['href'])
@@ -69,12 +69,12 @@ print(f"{ufmail}")
 print(separatorItems)
 
 print("get hrefs (src) of all <img>:")
-imgs = soup.find_all("img")
+imgs = soup.findAll("img")
 for img in imgs:
     print(f"-{img['src']}")
 print(separatorItems)
 
-print(f"count all <a>: {len(soup.find_all('a'))}")
+print(f"count all <a>: {len(soup.findAll('a'))}")
 
 print(separatorParts)
 
@@ -83,7 +83,7 @@ print(separatorParts)
 with open('persons.csv', 'w') as csvfile:
     filewriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    for a in soup.find_all('a'):
+    for a in soup.findAll('a'):
         text = a.string
         href = a['href']
         filewriter.writerow([f'{text}',f'{href}'])
@@ -106,32 +106,32 @@ soup = BeautifulSoup(html_content, "html.parser")
 print("2. Estudios \n")
 print("display all items from topmenu: ")
 topmenu = soup.find(id = "topmenu")
-for string in topmenu.find_all('li'):
+for string in topmenu.findAll('li'):
             print("-" + string.string.strip())
 print(separatorItems)
 
 print(" display ALL Estudios (Doctorados/Maestrias/Posgrados/Licenciaturas/Baccalaureus)")
-for estudios in soup.find_all(class_ = "estudios"):
+for estudios in soup.findAll(class_ = "estudios"):
     print ("-" + estudios.string)
     if estudios.find_next_sibling('p').find('b') is not None:
-        estudio = estudios.find_next_sibling('p').find_all('b')
+        estudio = estudios.find_next_sibling('p').findAll('b')
         for est in estudio:
             print ("   -"+ est.string)
 print(separatorItems)
 
 print("display from leftbar all <li> items:")
-leftbar_items = soup.find(class_ = "leftbar").find_all('li')
+leftbar_items = soup.find(class_ = "leftbar").findAll('li')
 for li in leftbar_items:
     print("-" + li.string)
 print(separatorItems)
 
 print("get and display all available social media with its links (href) class=social pull-right:")
-for link in soup.find(class_ = "social pull-right").find_all('a'):
+for link in soup.find(class_ = "social pull-right").findAll('a'):
     print ("-" + link['href']) 
 print(separatorItems)
 
 print("count all <a> :")
-print(len(soup.find_all('a')))
+print(len(soup.findAll('a')))
 
 
 print(separatorParts)
@@ -154,7 +154,7 @@ print("3. CS")
 print(f"GET title: {soup.title.string}")
 print(separatorItems)
 
-hrefs = soup.find_all(attrs={"href":True})
+hrefs = soup.findAll(attrs={"href":True})
 print("GET and display the href:")
 for href in hrefs:
     print(f"- {href['href']}")
@@ -176,12 +176,12 @@ print('og:description:' + soup.find('meta', property = 'og:description')['conten
 print(separatorItems)
 
 print("count all <a> (just display the count):")
-print(len(soup.find_all('a')))
+print(len(soup.findAll('a')))
 print(separatorItems)
 
 
 print("count all <div> (just display the count):")
-print(len(soup.find_all('div')))
+print(len(soup.findAll('div')))
 print(separatorParts)
 
 # part 4 ==============================================================================
@@ -218,8 +218,27 @@ for string in email_list:
 print(count)
 print(separatorItems)
 
+print('Group in a JSON all rows that have Same Address (dont use Room number) as address, dump it to logs/4directorio_address.json:')
+tuple_names_buildings = ()
+list_names = []
+list_buildings= []
+for table in soup.findAll('table', class_ = "tabla ancho100")[0:2]:
+    list_td = table.findAll('td')
+    names = list_td[0::5]
+    for name in names:
+        try:
+            list_names.append(name.a.string)
+        except:
+            list_names.append(" ")
 
 
-# for div in soup.find_all("div"):
+    list_buildings.append(list_td[4::5])
+
+
+tuple_names_buildings += (list_names,list_buildings,)
+    
+print (tuple_names_buildings[0][0])
+
+# for div in soup.findAll("div"):
 #     print(div)
 #     print("--------------------------"))
