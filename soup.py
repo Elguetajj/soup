@@ -275,8 +275,8 @@ with open('4directorio_3column_tables.csv', 'w') as csvfile:
                 filewriter.writerow(data)
 csvfile.close()
 
-    
-
+print("press enter to close app.")
+input()
 # for div in soup.findAll("div")
 #     print(div)
 #     print("--------------------------"))
