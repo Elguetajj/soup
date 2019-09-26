@@ -6,4 +6,5 @@ RUN pip install pipenv
 RUN pipenv install -r requirements.txt
 COPY . .
 RUN cd /code
-CMD [ "pipenv run soup.py" ]
+RUN pipenv shell
+CMD [ "python soup.py" ]
