@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests,sys,csv,json
 import os
 import urllib
+import itertools
 
 url="http://ufm.edu/Portal"
 # Make a GET request to fetch the raw HTML content
@@ -225,20 +226,57 @@ list_buildings= []
 for table in soup.findAll('table', class_ = "tabla ancho100")[0:2]:
     list_td = table.findAll('td')
     names = list_td[0::5]
+    buildings = list_td[4::5]
     for name in names:
         try:
             list_names.append(name.a.string)
         except:
             list_names.append(" ")
 
-
-    list_buildings.append(list_td[4::5])
-
+    for building in buildings:
+        try:
+            list_buildings.append(building.contents[0].split(',')[0].strip('\n').strip().lower())
+        except:
+            list_buildings.append(" ")
 
 tuple_names_buildings += (list_names,list_buildings,)
-    
-print (tuple_names_buildings[0][0])
+print(tuple_names_buildings[0][2])
 
-# for div in soup.findAll("div"):
+buildings_json = []
+for building in set(list_buildings):
+    buildings_json += f"{building}:"
+    temp_list = []
+    for i in range(40):
+        x = list_names[i]
+        if list_buildings[i] == building and x is not None:
+            temp_list.append(x) 
+    temp_list = list(filter(bool,temp_list))
+    buildings_json.append(json.dumps(f'{building} : {temp_list}'))
+json.dumps(temp_list)
+
+print('Try to correlate in a JSON Faculty Dean and Directors, and dump it to logs/4directorio_deans.json:')
+
+print('GET the directory of all 3 column table and generate a CSV with these columns (Entity,FullName, Email), and dump it to logs/4directorio_3column_tables.csv:')
+with open('4directorio_3column_tables.csv', 'w') as csvfile:
+    filewriter = csv.writer(csvfile, delimiter=',', lineterminator='\n')
+    for a in soup.findAll('table', class_="tabla ancho100 col3"):
+            td = a.findAll('td')
+            entities = []
+            names = []
+            emails = []
+            for entity in td[0::3]:
+                entities.append(entity.text)
+            for name in td[1::3]:
+                names.append(name.text)
+            for email in td[2::3]:
+                emails.append(email.text)
+            entity_name_email = list(zip(entities,names,emails))
+            for data in entity_name_email:
+                filewriter.writerow(data)
+csvfile.close()
+
+    
+
+# for div in soup.findAll("div")
 #     print(div)
 #     print("--------------------------"))
