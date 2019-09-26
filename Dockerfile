@@ -5,3 +5,4 @@ RUN pip install --upgrade pip
 RUN pip install pipenv
 RUN pipenv install -r requirements.txt
 COPY . .
+CMD [ "python", "./soup.py" ]

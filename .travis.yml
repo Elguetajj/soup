@@ -7,4 +7,4 @@ before_install:
   - docker build -t soupimage .
 
 script: 
-  python tests.py
+  - docker run soupimage
